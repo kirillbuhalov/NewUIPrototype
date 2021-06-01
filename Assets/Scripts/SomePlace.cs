@@ -6,6 +6,8 @@ public class SomePlace : MonoBehaviour
 {
     [SerializeField] private Button button;
 
+    private bool isOpen;
+
     private void Start()
     {
         button.onClick.AddListener(ShowPopup);
@@ -13,6 +15,13 @@ public class SomePlace : MonoBehaviour
 
     public void ShowPopup()
     {
+        if (isOpen)
+        {
+            UIService.Instance.ClosePopupScreen();
+            isOpen = false;
+            return;
+        }
+
         var popup = new PopupViewContext
         {
             BackgroundViewContext = new BackgroundViewContext
@@ -112,5 +121,6 @@ public class SomePlace : MonoBehaviour
         };
 
         UIService.Instance.OpenPopupScreen(popup);
+        isOpen = true;
     }
 }

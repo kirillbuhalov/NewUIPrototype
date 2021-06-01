@@ -1,10 +1,12 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI
 {
     internal class ViewBase : MonoBehaviour
     {
+        private readonly List<ViewBase> nestedViews = new List<ViewBase>();
 
         private RectTransform rectTransform = null;
 
@@ -23,12 +25,23 @@ namespace UI
             }
         }
 
+        public void AddNestedView(ViewBase view)
+        {
+            nestedViews.Add(view);
+        }
+
         public virtual void OnOpen()
         {
         }
 
         public virtual void OnClose()
         {
+            for (int i = 0; i < nestedViews.Count ; i++)
+            {
+                UIViewsPool.Instance.DeSpawn(nestedViews[i]);
+            }
+
+            nestedViews.Clear();
         }
 
         protected void SetViewSettings(ViewSettingsBase viewSettings)

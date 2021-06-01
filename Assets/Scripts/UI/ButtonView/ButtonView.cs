@@ -31,6 +31,7 @@ namespace UI
         {
             var labelView = UIViewsPool.Instance.Spawn<TextView, TextViewContext>(Context.LabelViewContext, transform);
             labelView.Initialize(Context.LabelViewContext);
+            AddNestedView(labelView);
         }
     }
 }

@@ -8,6 +8,8 @@ namespace UI
 
         [SerializeField] private Transform uiRoot;
 
+        private PopupView popup;
+
         private void Awake()
         {
             Instance = this;
@@ -20,10 +22,14 @@ namespace UI
 
         public void OpenPopupScreen(PopupViewContext popupContext)
         {
-            var root = UIViewsPool.Instance.Spawn<PopupView, PopupViewContext>(popupContext, uiRoot);
-            root.Initialize(popupContext);
+            popup = UIViewsPool.Instance.Spawn<PopupView, PopupViewContext>(popupContext, uiRoot);
+            popup.Initialize(popupContext);
         }
 
-
+        public void ClosePopupScreen()
+        {
+            UIViewsPool.Instance.DeSpawn(popup);
+            popup = null;
+        }
     }
 }

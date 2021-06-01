@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -49,6 +48,9 @@ namespace UI
         {
             TView view = Spawn<TView, TViewContext>(viewContext);
             view.transform.SetParent(parentTransform);
+            view.gameObject.SetActive(true);
+            //todo kirill.buhalov: need to think about better place to this callback
+            view.OnOpen();
             return view;
         }
 
@@ -57,6 +59,7 @@ namespace UI
             view.OnClose();
             inactive[view.Guid].Push(view);
             view.gameObject.SetActive(false);
+            view.transform.SetParent(transform);
         }
     }
 }
