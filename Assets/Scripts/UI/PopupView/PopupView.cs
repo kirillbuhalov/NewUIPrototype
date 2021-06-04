@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace UI
 {
     internal class PopupView : ViewBase<PopupViewContext>
@@ -6,36 +8,37 @@ namespace UI
 
         public override int Guid => ComponentGuid;
 
-        public override void Initialize(PopupViewContext context)
+        public void Initialize(PopupViewContext context, ViewSettingsBase viewSettings)
         {
             base.Initialize(context);
 
-            SetViewSettings(new ViewSettingsBase());
+            SetViewSettings(viewSettings);
 
-            ShowNestedViews();
+            ShowNestedViews(viewSettings);
         }
 
-        private void ShowNestedViews()
+        private void ShowNestedViews(ViewSettingsBase viewSettings)
         {
-            var backgroundView = UIViewsPool.Instance.Spawn<BackgroundView, BackgroundViewContext>(Context.BackgroundViewContext, transform);
-            backgroundView.Initialize(Context.BackgroundViewContext);
+            var backgroundViewSettings = (BackgroundViewSettings) viewSettings.Nested.First(_ => _.Id == 0);
+            var backgroundView = UIViewsPool.Instance.Spawn<BackgroundView>(backgroundViewSettings, transform);
+            backgroundView.Initialize(Context.BackgroundViewContext, backgroundViewSettings);
             AddNestedView(backgroundView);
 
-            var titleView = UIViewsPool.Instance.Spawn<TextView, TextViewContext>(Context.TitleViewContext, backgroundView.transform);
-            titleView.Initialize(Context.TitleViewContext);
-            AddNestedView(titleView);
-
-            var messageView = UIViewsPool.Instance.Spawn<TextView, TextViewContext>(Context.MessageViewContext, backgroundView.transform);
-            messageView.Initialize(Context.MessageViewContext);
-            AddNestedView(messageView);
-
-            var okButtonView = UIViewsPool.Instance.Spawn<ButtonView, ButtonViewContext>(Context.OkButtonViewContext, backgroundView.transform);
-            okButtonView.Initialize(Context.OkButtonViewContext);
-            AddNestedView(okButtonView);
-
-            var cancelButtonView = UIViewsPool.Instance.Spawn<ButtonView, ButtonViewContext>(Context.CancelButtonViewContext, backgroundView.transform);
-            cancelButtonView.Initialize(Context.CancelButtonViewContext);
-            AddNestedView(cancelButtonView);
+            // var titleView = UIViewsPool.Instance.Spawn<TextView, TextViewContext>(Context.TitleViewContext, backgroundView.transform);
+            // titleView.Initialize(Context.TitleViewContext);
+            // AddNestedView(titleView);
+            //
+            // var messageView = UIViewsPool.Instance.Spawn<TextView, TextViewContext>(Context.MessageViewContext, backgroundView.transform);
+            // messageView.Initialize(Context.MessageViewContext);
+            // AddNestedView(messageView);
+            //
+            // var okButtonView = UIViewsPool.Instance.Spawn<ButtonView, ButtonViewContext>(Context.OkButtonViewContext, backgroundView.transform);
+            // okButtonView.Initialize(Context.OkButtonViewContext);
+            // AddNestedView(okButtonView);
+            //
+            // var cancelButtonView = UIViewsPool.Instance.Spawn<ButtonView, ButtonViewContext>(Context.CancelButtonViewContext, backgroundView.transform);
+            // cancelButtonView.Initialize(Context.CancelButtonViewContext);
+            // AddNestedView(cancelButtonView);
         }
     }
 }

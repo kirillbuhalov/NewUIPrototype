@@ -52,7 +52,7 @@ namespace UI
             RectTransform.anchoredPosition = viewSettings.AnchoredPosition;
             RectTransform.sizeDelta = viewSettings.SizeDelta;
             RectTransform.localScale = viewSettings.LocalScale;
-            RectTransform.rotation = viewSettings.Rotation;
+            RectTransform.eulerAngles = viewSettings.EulerAngles;
         }
     }
 

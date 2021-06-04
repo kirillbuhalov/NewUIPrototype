@@ -11,11 +11,11 @@ namespace UI
 
         [SerializeField] private Image image;
 
-        public override void Initialize(BackgroundViewContext context)
+        public void Initialize(BackgroundViewContext context, BackgroundViewSettings viewSettings)
         {
             base.Initialize(context);
 
-            SetViewSettings(context.ViewSettings);
+            SetViewSettings(viewSettings);
         }
 
         private void SetViewSettings(BackgroundViewSettings viewSettings)

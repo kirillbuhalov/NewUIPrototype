@@ -4,6 +4,7 @@ namespace UI
 {
     public class BackgroundViewSettings : ViewSettingsBase
     {
-        public Color Color { get; set; }
+        public override string ResourceId { get; set; } = "BackgroundView";
+        public Vector4 Color { get; set; }
     }
 }

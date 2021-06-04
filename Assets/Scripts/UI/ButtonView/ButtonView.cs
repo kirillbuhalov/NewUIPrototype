@@ -24,12 +24,12 @@ namespace UI
         {
             base.SetViewSettings(viewSettings);
 
-            button.colors = viewSettings.Colors;
+            button.image.color = viewSettings.Color;
         }
 
         private void ShowNestedViews()
         {
-            var labelView = UIViewsPool.Instance.Spawn<TextView, TextViewContext>(Context.LabelViewContext, transform);
+            var labelView = UIViewsPool.Instance.Spawn<TextView>(new TextViewSettings(), transform);
             labelView.Initialize(Context.LabelViewContext);
             AddNestedView(labelView);
         }

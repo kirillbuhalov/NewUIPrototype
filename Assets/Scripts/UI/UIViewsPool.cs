@@ -10,13 +10,13 @@ namespace UI
 
         [SerializeField] private List<ViewBase> views;
 
-        private readonly Dictionary<int, Stack<ViewBase>> inactive = new Dictionary<int, Stack<ViewBase>>();
+        private readonly Dictionary<string, Stack<ViewBase>> inactive = new Dictionary<string, Stack<ViewBase>>();
 
         private void Awake()
         {
             for (int i = 0; i < views.Count; i++)
             {
-                inactive.Add(views[i].Guid, new Stack<ViewBase>());
+                inactive.Add(views[i].name, new Stack<ViewBase>());
             }
 
             Instance = this;
@@ -27,26 +27,26 @@ namespace UI
             Instance = null;
         }
 
-        public TView Spawn<TView, TViewContext>(TViewContext viewContext) where TView : ViewBase where TViewContext : ViewContextBase
+        public TView Spawn<TView>(ViewSettingsBase viewSettings) where TView : ViewBase
         {
             TView view;
 
-            if (inactive[viewContext.ViewGuid].Count > 0)
+            if (inactive[viewSettings.ResourceId].Count > 0)
             {
-                view = (TView) inactive[viewContext.ViewGuid].Pop();
+                view = (TView) inactive[viewSettings.ResourceId].Pop();
             }
             else
             {
-                var viewPrefab = views.First(v => v.Guid == viewContext.ViewGuid);
+                var viewPrefab = views.First(v => v.name == viewSettings.ResourceId);
                 view = (TView) Instantiate(viewPrefab);
             }
 
             return view;
         }
 
-        public TView Spawn<TView, TViewContext>(TViewContext viewContext, Transform parentTransform) where TView : ViewBase where TViewContext : ViewContextBase
+        public TView Spawn<TView>(ViewSettingsBase viewSettings, Transform parentTransform) where TView : ViewBase
         {
-            TView view = Spawn<TView, TViewContext>(viewContext);
+            TView view = Spawn<TView>(viewSettings);
             view.transform.SetParent(parentTransform);
             view.gameObject.SetActive(true);
             //todo kirill.buhalov: need to think about better place to this callback
@@ -57,7 +57,7 @@ namespace UI
         public void DeSpawn(ViewBase view)
         {
             view.OnClose();
-            inactive[view.Guid].Push(view);
+            inactive[view.name].Push(view);
             view.gameObject.SetActive(false);
             view.transform.SetParent(transform);
         }

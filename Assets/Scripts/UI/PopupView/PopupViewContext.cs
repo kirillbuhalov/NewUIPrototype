@@ -2,8 +2,6 @@ namespace UI
 {
     public class PopupViewContext : ViewContextBase
     {
-        public override int ViewGuid => PopupView.ComponentGuid;
-
         public BackgroundViewContext BackgroundViewContext { get; set; }
 
         public TextViewContext TitleViewContext { get; set; }

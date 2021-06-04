@@ -22,105 +22,36 @@ public class SomePlace : MonoBehaviour
             return;
         }
 
+        var viewSettings = ViewSettingsProvider.GetViewSettings();
+
         var popup = new PopupViewContext
         {
-            BackgroundViewContext = new BackgroundViewContext
-            {
-                ViewSettings = new BackgroundViewSettings
-                {
-                    AnchorMin = new Vector2(0.5f, 0.5f),
-                    AnchorMax = new Vector2(0.5f, 0.5f),
-                    Pivot = new Vector2(0.5f, 0.5f),
-                    SizeDelta = new Vector2(1000, 800),
-                    Color = Color.gray,
-                }
-            },
+            BackgroundViewContext = new BackgroundViewContext(),
             TitleViewContext = new TextViewContext
             {
-                Label = "PopupTitle",
-                ViewSettings = new TextViewSettings
-                {
-                    AnchorMin = new Vector2(0f, 1f),
-                    AnchorMax = new Vector2(1f, 1f),
-                    AnchoredPosition = new Vector2(0, -40),
-                    Pivot = new Vector2(0.5f, 1f),
-                    SizeDelta = new Vector2(0, 100),
-                    TextSize = 50,
-                    TextColor = Color.white,
-                }
+                Label = "PopupTitle"
             },
             MessageViewContext = new TextViewContext
             {
-                Label = "Long long message",
-                ViewSettings = new TextViewSettings
-                {
-                    AnchorMin = new Vector2(0f, 0.5f),
-                    AnchorMax = new Vector2(1f, 0.5f),
-                    Pivot = new Vector2(0.5f, 0.5f),
-                    SizeDelta = new Vector2(0, 100),
-                    TextSize = 30,
-                    TextColor = Color.white,
-                }
+                Label = "Long long message"
             },
             OkButtonViewContext = new ButtonViewContext
             {
-                ViewSettings = new ButtonViewSettings
-                {
-                    AnchorMin = new Vector2(0.5f, 0f),
-                    AnchorMax = new Vector2(0.5f, 0f),
-                    AnchoredPosition = new Vector2(-40, 120),
-                    Pivot = new Vector2(1f, 0.5f),
-                    SizeDelta = new Vector2(160, 44),
-                    Colors = new ColorBlock
-                    {
-                        normalColor = Color.green,
-                        highlightedColor = Color.green,
-                        pressedColor = Color.green,
-                        disabledColor = Color.grey,
-                        colorMultiplier = 1
-                    }
-                },
                 LabelViewContext = new TextViewContext
                 {
-                    Label = "Ok",
-                    ViewSettings = new TextViewSettings
-                    {
-                        TextColor = Color.black,
-                        TextSize = 25
-                    }
+                    Label = "Ok"
                 },
             },
             CancelButtonViewContext = new ButtonViewContext
             {
-                ViewSettings = new ButtonViewSettings
-                {
-                    AnchorMin = new Vector2(0.5f, 0f),
-                    AnchorMax = new Vector2(0.5f, 0f),
-                    AnchoredPosition = new Vector2(40, 120),
-                    Pivot = new Vector2(0f, 0.5f),
-                    SizeDelta = new Vector2(160, 44),
-                    Colors = new ColorBlock
-                    {
-                        normalColor = Color.red,
-                        highlightedColor = Color.red,
-                        pressedColor = Color.red,
-                        disabledColor = Color.grey,
-                        colorMultiplier = 1
-                    }
-                },
                 LabelViewContext = new TextViewContext
                 {
-                    Label = "Cancel",
-                    ViewSettings = new TextViewSettings
-                    {
-                        TextColor = Color.black,
-                        TextSize = 25
-                    }
+                    Label = "Cancel"
                 }
             }
         };
 
-        UIService.Instance.OpenPopupScreen(popup);
+        UIService.Instance.OpenPopupScreen(popup, viewSettings);
         isOpen = true;
     }
 }

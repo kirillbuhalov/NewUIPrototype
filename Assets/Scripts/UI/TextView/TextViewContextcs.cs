@@ -2,7 +2,7 @@ namespace UI
 {
     public class TextViewContext : ViewContextBase
     {
-        public override int ViewGuid => TextView.ComponentGuid;
+        //public override int ViewGuid { get; set; } = TextView.ComponentGuid;
 
         public TextViewSettings ViewSettings { get; set; }
 

@@ -20,10 +20,10 @@ namespace UI
             Instance = null;
         }
 
-        public void OpenPopupScreen(PopupViewContext popupContext)
+        public void OpenPopupScreen(PopupViewContext popupContext, PopupViewSettings viewSettings)
         {
-            popup = UIViewsPool.Instance.Spawn<PopupView, PopupViewContext>(popupContext, uiRoot);
-            popup.Initialize(popupContext);
+            popup = UIViewsPool.Instance.Spawn<PopupView>(viewSettings, uiRoot);
+            popup.Initialize(popupContext, viewSettings);
         }
 
         public void ClosePopupScreen()
