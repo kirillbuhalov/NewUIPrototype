@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UI
@@ -8,7 +9,7 @@ namespace UI
 
         [SerializeField] private Transform uiRoot;
 
-        private PopupView popup;
+        private ViewBase popup;
 
         private void Awake()
         {
@@ -20,10 +21,11 @@ namespace UI
             Instance = null;
         }
 
-        public void OpenPopupScreen(PopupViewContext popupContext, PopupViewSettings viewSettings)
+        public void ShowPopup(PopupViewContext viewContext)
         {
-            popup = UIViewsPool.Instance.Spawn<PopupView>(viewSettings, uiRoot);
-            popup.Initialize(popupContext, viewSettings);
+            var viewSettings = ViewSettingsProvider.GetPopupViewSettings();
+            popup = UIViewsPool.Instance.GetView<PopupView>(viewSettings.ResourceId, uiRoot).Bind(viewContext, viewSettings)
+                .AddNested(UIViewsPool.Instance.GetView<BackgroundView>(viewSettings.Nested[0].ResourceId).Bind(viewContext.BackgroundViewContext, viewSettings.Nested[0]));
         }
 
         public void ClosePopupScreen()

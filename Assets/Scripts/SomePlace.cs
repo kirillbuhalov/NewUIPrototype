@@ -22,8 +22,6 @@ public class SomePlace : MonoBehaviour
             return;
         }
 
-        var viewSettings = ViewSettingsProvider.GetViewSettings();
-
         var popup = new PopupViewContext
         {
             BackgroundViewContext = new BackgroundViewContext(),
@@ -51,7 +49,7 @@ public class SomePlace : MonoBehaviour
             }
         };
 
-        UIService.Instance.OpenPopupScreen(popup, viewSettings);
+        UIService.Instance.ShowPopup(popup);
         isOpen = true;
     }
 }

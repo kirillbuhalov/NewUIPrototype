@@ -1,16 +1,14 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace UI
 {
-    internal class ViewBase : MonoBehaviour
+    public class ViewBase : MonoBehaviour
     {
         private readonly List<ViewBase> nestedViews = new List<ViewBase>();
 
         private RectTransform rectTransform = null;
-
-        public virtual int Guid => throw new NotImplementedException();
+        private Dictionary<int, ViewSettings> nestedViewSettings;
 
         public RectTransform RectTransform
         {
@@ -30,46 +28,61 @@ namespace UI
             nestedViews.Add(view);
         }
 
-        public virtual void OnOpen()
+        public virtual void Open()
         {
+            gameObject.SetActive(true);
         }
 
-        public virtual void OnClose()
+        public virtual void Close()
         {
+
+            gameObject.SetActive(false);
+
             for (int i = 0; i < nestedViews.Count ; i++)
             {
                 UIViewsPool.Instance.DeSpawn(nestedViews[i]);
             }
 
             nestedViews.Clear();
+            nestedViewSettings = null;
         }
 
-        protected void SetViewSettings(ViewSettingsBase viewSettings)
+        internal void SetViewSettings(ViewSettings viewSettings)
         {
+            NestedViewSettings = viewSettings.Nested;
             RectTransform.anchorMin = viewSettings.AnchorMin;
             RectTransform.anchorMax = viewSettings.AnchorMax;
             RectTransform.pivot = viewSettings.Pivot;
             RectTransform.anchoredPosition = viewSettings.AnchoredPosition;
+            //todo kirill.buhalov: need to think about moving that properties to styles (or not)
             RectTransform.sizeDelta = viewSettings.SizeDelta;
             RectTransform.localScale = viewSettings.LocalScale;
             RectTransform.eulerAngles = viewSettings.EulerAngles;
+
+        }
+
+        internal Dictionary<int, ViewSettings> NestedViewSettings
+        {
+            get => nestedViewSettings;
+            private set => nestedViewSettings = value;
         }
     }
 
-    internal class ViewBase<TViewContext> : ViewBase where TViewContext : ViewContextBase
+    internal class ViewBase<TViewContext> : ViewBase
+        where TViewContext : ViewContextBase
     {
         private TViewContext context;
 
         public TViewContext Context => context;
 
-        public virtual void Initialize(TViewContext context)
+        internal void SetContext(TViewContext context)
         {
             this.context = context;
         }
 
-        public override void OnClose()
+        public override void Close()
         {
-            base.OnClose();
+            base.Close();
 
             context = null;
         }

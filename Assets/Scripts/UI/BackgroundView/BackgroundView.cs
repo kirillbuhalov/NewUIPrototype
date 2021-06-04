@@ -1,3 +1,4 @@
+using UI.Styles;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,24 +6,21 @@ namespace UI
 {
     internal class BackgroundView : ViewBase<BackgroundViewContext>
     {
-        public static readonly int ComponentGuid = GuidManager.GetNextGuid();
-
-        public override int Guid => ComponentGuid;
-
         [SerializeField] private Image image;
 
-        public void Initialize(BackgroundViewContext context, BackgroundViewSettings viewSettings)
+        public override void Open()
         {
-            base.Initialize(context);
+            base.Open();
 
-            SetViewSettings(viewSettings);
+            //todo kirill.buhalov: get style by id from ViewSettings
+            var style = StylesManager.BackgroundViewStyle;
+            SetStyle(style);
         }
 
-        private void SetViewSettings(BackgroundViewSettings viewSettings)
+        private void SetStyle(BackgroundViewStyle style)
         {
-            base.SetViewSettings(viewSettings);
-
-            image.color = viewSettings.Color;
+            image.color = style.Color;
+            RectTransform.sizeDelta = style.Size;
         }
     }
 }
