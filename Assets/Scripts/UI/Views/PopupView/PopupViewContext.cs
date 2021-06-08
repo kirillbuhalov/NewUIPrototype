@@ -1,6 +1,6 @@
-namespace UI
+namespace NewUIPrototype.UI
 {
-    public class PopupViewContext : ViewContextBase
+    public sealed class PopupViewContext : ViewContextBase
     {
         public BackgroundViewContext BackgroundViewContext { get; set; }
 
@@ -11,5 +11,9 @@ namespace UI
          public ButtonViewContext OkButtonViewContext { get; set; }
 
          public ButtonViewContext CancelButtonViewContext { get; set; }
+
+         public PopupViewContext(int sequenceNumber) : base(sequenceNumber)
+         {
+         }
     }
 }

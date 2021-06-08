@@ -1,55 +1,50 @@
-using UI;
+using NewUIPrototype.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SomePlace : MonoBehaviour
+namespace NewUIPrototype
 {
-    [SerializeField] private Button button;
-
-    private bool isOpen;
-
-    private void Start()
+    public class SomePlace : MonoBehaviour
     {
-        button.onClick.AddListener(ShowPopup);
-    }
+        [SerializeField] private Button button;
 
-    public void ShowPopup()
-    {
-        if (isOpen)
+        private bool isOpen;
+
+        private void Start()
         {
-            UIService.Instance.ClosePopupScreen();
-            isOpen = false;
-            return;
+            button.onClick.AddListener(ShowPopup);
         }
 
-        var popup = new PopupViewContext
+        public void ShowPopup()
         {
-            BackgroundViewContext = new BackgroundViewContext(),
-            TitleViewContext = new TextViewContext
+            var popup = new PopupViewContext(0)
             {
-                Label = "PopupTitle"
-            },
-            MessageViewContext = new TextViewContext
-            {
-                Label = "Long long message"
-            },
-            OkButtonViewContext = new ButtonViewContext
-            {
-                LabelViewContext = new TextViewContext
+                BackgroundViewContext = new BackgroundViewContext(1),
+                TitleViewContext = new TextViewContext(2)
                 {
-                    Label = "Ok"
+                    Label = "PopupTitle"
                 },
-            },
-            CancelButtonViewContext = new ButtonViewContext
-            {
-                LabelViewContext = new TextViewContext
+                MessageViewContext = new TextViewContext(3)
                 {
-                    Label = "Cancel"
+                    Label = "Long long message"
+                },
+                OkButtonViewContext = new ButtonViewContext(4)
+                {
+                    LabelViewContext = new TextViewContext(5)
+                    {
+                        Label = "Ok"
+                    },
+                },
+                CancelButtonViewContext = new ButtonViewContext(6)
+                {
+                    LabelViewContext = new TextViewContext(7)
+                    {
+                        Label = "Cancel"
+                    }
                 }
-            }
-        };
+            };
 
-        UIService.Instance.ShowPopup(popup);
-        isOpen = true;
+            UIService.Instance.ShowPopup(popup);
+        }
     }
 }

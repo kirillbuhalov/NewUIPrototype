@@ -1,7 +1,7 @@
-using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI
+namespace NewUIPrototype.UI
 {
     public class UIService : MonoBehaviour
     {
@@ -9,7 +9,7 @@ namespace UI
 
         [SerializeField] private Transform uiRoot;
 
-        private ViewBase popup;
+        private readonly Stack<ViewBase> navigationStack = new Stack<ViewBase>();
 
         private void Awake()
         {
@@ -23,15 +23,15 @@ namespace UI
 
         public void ShowPopup(PopupViewContext viewContext)
         {
-            var viewSettings = ViewSettingsProvider.GetPopupViewSettings();
-            popup = UIViewsPool.Instance.GetView<PopupView>(viewSettings.ResourceId, uiRoot).Bind(viewContext, viewSettings)
-                .AddNested(UIViewsPool.Instance.GetView<BackgroundView>(viewSettings.Nested[0].ResourceId).Bind(viewContext.BackgroundViewContext, viewSettings.Nested[0]));
+            var viewSettings = ViewSettingsManager.GetPopupViewSettings();
+            var view = UIViewsPool.Instance.GetView<PopupView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
+            navigationStack.Push(view);
         }
 
         public void ClosePopupScreen()
         {
-            UIViewsPool.Instance.DeSpawn(popup);
-            popup = null;
+            var view = navigationStack.Pop();
+            UIViewsPool.Instance.DeSpawn(view);
         }
     }
 }

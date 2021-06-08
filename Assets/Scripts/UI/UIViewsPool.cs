@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace UI
+namespace NewUIPrototype.UI
 {
     internal class UIViewsPool : MonoBehaviour
     {
@@ -30,13 +30,13 @@ namespace UI
 
         public TView GetView<TView>(string resourceId) where TView : ViewBase
         {
-            var view = UIViewsPool.Instance.Spawn<TView>(resourceId);
+            var view = Instance.Spawn<TView>(resourceId);
             return view;
         }
 
         public TView GetView<TView>(string resourceId, Transform parent) where TView : ViewBase
         {
-            var view = UIViewsPool.Instance.Spawn<TView>(resourceId, parent);
+            var view = Instance.Spawn<TView>(resourceId, parent);
             return view;
         }
 

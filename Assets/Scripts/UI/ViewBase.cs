@@ -1,14 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace UI
+namespace NewUIPrototype.UI
 {
     public class ViewBase : MonoBehaviour
     {
         private readonly List<ViewBase> nestedViews = new List<ViewBase>();
 
         private RectTransform rectTransform = null;
-        private Dictionary<int, ViewSettings> nestedViewSettings;
+        private ViewSettings viewSettings;
+
+        internal ViewSettings ViewSettings
+        {
+            get => viewSettings;
+            private set => viewSettings = value;
+        }
 
         public RectTransform RectTransform
         {
@@ -23,18 +29,36 @@ namespace UI
             }
         }
 
-        public void AddNestedView(ViewBase view)
+        protected virtual void AddSubscriptions()
         {
-            nestedViews.Add(view);
         }
 
-        public virtual void Open()
+        protected virtual void RemoveSubscriptions()
+        {
+        }
+
+        protected virtual void OpenNestedViews()
+        {
+        }
+
+        internal void AddNested(ViewBase view)
+        {
+            nestedViews.Add(view);
+            view.transform.SetParent(transform);
+        }
+
+        protected virtual void Open()
         {
             gameObject.SetActive(true);
+
+            OpenNestedViews();
+
+            AddSubscriptions();
         }
 
         public virtual void Close()
         {
+            RemoveSubscriptions();
 
             gameObject.SetActive(false);
 
@@ -44,12 +68,12 @@ namespace UI
             }
 
             nestedViews.Clear();
-            nestedViewSettings = null;
+            viewSettings = null;
         }
 
         internal void SetViewSettings(ViewSettings viewSettings)
         {
-            NestedViewSettings = viewSettings.Nested;
+            ViewSettings = viewSettings;
             RectTransform.anchorMin = viewSettings.AnchorMin;
             RectTransform.anchorMax = viewSettings.AnchorMax;
             RectTransform.pivot = viewSettings.Pivot;
@@ -60,12 +84,6 @@ namespace UI
             RectTransform.eulerAngles = viewSettings.EulerAngles;
 
         }
-
-        internal Dictionary<int, ViewSettings> NestedViewSettings
-        {
-            get => nestedViewSettings;
-            private set => nestedViewSettings = value;
-        }
     }
 
     internal class ViewBase<TViewContext> : ViewBase
@@ -75,10 +93,14 @@ namespace UI
 
         public TViewContext Context => context;
 
-        internal void SetContext(TViewContext context)
+        internal ViewBase Open(TViewContext context, ViewSettings viewSettings)
         {
             this.context = context;
+            SetViewSettings(viewSettings);
+            Open();
+            return this;
         }
+
 
         public override void Close()
         {

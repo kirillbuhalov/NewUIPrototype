@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
 
-public class NeedToDelete : MonoBehaviour
+namespace NewUIPrototype
 {
-    [ContextMenu("GoGoGo")]
-    public void SuperMethod()
+    public class NeedToDelete : MonoBehaviour
     {
+        [ContextMenu("GoGoGo")]
+        public void SuperMethod()
+        {
+        }
     }
 }
