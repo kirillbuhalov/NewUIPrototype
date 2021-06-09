@@ -109,6 +109,10 @@ namespace NewUIPrototype.UI
             var viewSettings = new ViewSettings
             {
                 ResourceId = "ContainerView",
+                AnchorMin = new Vector2(0.5f, 0.5f),
+                AnchorMax = new Vector2(0.5f, 0.5f),
+                Pivot = new Vector2(0.5f, 0.5f),
+                SizeDelta = new Vector2(1000, 800),
                 Nested = new Dictionary<int, ViewSettings>
                 {
                     {

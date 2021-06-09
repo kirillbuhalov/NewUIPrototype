@@ -2,11 +2,7 @@ using UnityEngine;
 
 namespace NewUIPrototype.UI
 {
-    internal class CardContainerView : ContainerView<CardView, CardViewContext>
-    {
-    }
-
-    internal class ContainerView<TItemView, TItemViewContext> : ViewBase<ContainerViewContext<TItemViewContext>> where TItemViewContext : ViewContextBase where TItemView : ViewBase<TItemViewContext>
+    internal class ContainerView : ViewBase<ContainerViewContext>
     {
         [SerializeField] private Transform contentRoot;
 
@@ -16,7 +12,7 @@ namespace NewUIPrototype.UI
         {
             base.Open();
 
-            style = StylesManager.Get<ContainerViewStyle>(ViewSettings.StyleId);
+            //style = StylesManager.Get<ContainerViewStyle>(ViewSettings.StyleId);
         }
 
         protected override void OpenNestedViews()
@@ -34,10 +30,12 @@ namespace NewUIPrototype.UI
                 int spacing = 5;
 
                 itemViewSettings.AnchorMax = alignment;
-                itemViewSettings.SizeDelta = new Vector2(itemSize.x * i + spacing, itemSize.y);
+                itemViewSettings.SizeDelta = itemSize;
+                itemViewSettings.AnchoredPosition = new Vector2((itemSize.x + spacing) * i, 0);
                 itemViewSettings.Pivot = new Vector2(0, 0.5f);
+
                 var view = UIViewsPool.Instance
-                    .GetView<TItemView>(itemViewSettings.ResourceId, contentRoot)
+                    .GetView<CardView>(itemViewSettings.ResourceId, contentRoot)
                     .Open(itemContext, itemViewSettings);
                 AddNested(view);
             }

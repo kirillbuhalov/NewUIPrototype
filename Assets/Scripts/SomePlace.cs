@@ -52,7 +52,7 @@ namespace NewUIPrototype
 
         public void ShowCollection()
         {
-            var context = new ContainerViewContext<CardViewContext>(0)
+            var context = new ContainerViewContext(0)
             {
                 Items = new List<CardViewContext>()
                 {

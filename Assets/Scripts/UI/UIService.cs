@@ -27,10 +27,10 @@ namespace NewUIPrototype.UI
             var view = UIViewsPool.Instance.GetView<PopupView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
             navigationStack.Push(view);
         }
-        public void ShowContainer(ContainerViewContext<CardViewContext> viewContext)
+        public void ShowContainer(ContainerViewContext viewContext)
         {
             var viewSettings = ViewSettingsManager.GetContainerViewSettings();
-            var view = UIViewsPool.Instance.GetView<CardContainerView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
+            var view = UIViewsPool.Instance.GetView<ContainerView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
             navigationStack.Push(view);
         }
 
