@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using NewUIPrototype.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,12 +8,14 @@ namespace NewUIPrototype
     public class SomePlace : MonoBehaviour
     {
         [SerializeField] private Button button;
+        [SerializeField] private Button button1;
 
         private bool isOpen;
 
         private void Start()
         {
             button.onClick.AddListener(ShowPopup);
+            button1.onClick.AddListener(ShowCollection);
         }
 
         public void ShowPopup()
@@ -45,6 +48,29 @@ namespace NewUIPrototype
             };
 
             UIService.Instance.ShowPopup(popup);
+        }
+
+        public void ShowCollection()
+        {
+            var context = new ContainerViewContext<CardViewContext>(0)
+            {
+                Items = new List<CardViewContext>()
+                {
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                    new CardViewContext(1),
+                }
+            };
+
+            UIService.Instance.ShowContainer(context);
         }
     }
 }

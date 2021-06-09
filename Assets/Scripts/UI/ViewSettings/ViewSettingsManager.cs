@@ -6,7 +6,7 @@ namespace NewUIPrototype.UI
 {
     public static class ViewSettingsManager
     {
-        private static string GetViewSettingsJson()
+        private static string GetPopupViewSettingsJson()
         {
             var viewSettings = new ViewSettings
             {
@@ -104,13 +104,48 @@ namespace NewUIPrototype.UI
             return result;
         }
 
+        private static string GetContainerViewSettingsJson()
+        {
+            var viewSettings = new ViewSettings
+            {
+                ResourceId = "ContainerView",
+                Nested = new Dictionary<int, ViewSettings>
+                {
+                    {
+                        1, new ViewSettings
+                        {
+                            ResourceId = "CardView",
+                        }
+                    }
+                },
+            };
+
+
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            string result = JsonConvert.SerializeObject(viewSettings, settings);
+            return result;
+        }
+
         public static ViewSettings GetPopupViewSettings()
         {
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             };
-            return JsonConvert.DeserializeObject<ViewSettings>(GetViewSettingsJson(), settings);
+            return JsonConvert.DeserializeObject<ViewSettings>(GetPopupViewSettingsJson(), settings);
+        }
+
+        public static ViewSettings GetContainerViewSettings()
+        {
+            JsonSerializerSettings settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All
+            };
+            return JsonConvert.DeserializeObject<ViewSettings>(GetContainerViewSettingsJson(), settings);
         }
     }
 }
