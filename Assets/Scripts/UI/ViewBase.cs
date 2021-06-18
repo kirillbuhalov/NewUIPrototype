@@ -44,7 +44,6 @@ namespace NewUIPrototype.UI
         internal void AddNested(ViewBase view)
         {
             nestedViews.Add(view);
-            //view.transform.SetParent(transform);
         }
 
         protected virtual void Open()
