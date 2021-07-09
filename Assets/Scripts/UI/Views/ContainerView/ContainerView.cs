@@ -35,7 +35,7 @@ namespace NewUIPrototype.UI
                 itemViewSettings.Pivot = new Vector2(0, 0.5f);
 
                 var view = UIViewsPool.Instance
-                    .GetView<CardView>(itemViewSettings.ResourceId, contentRoot)
+                    .SpawnInParent<CardView>(itemViewSettings.ResourceId, contentRoot)
                     .Open(itemContext, itemViewSettings);
                 AddNested(view);
             }

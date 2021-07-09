@@ -10,28 +10,28 @@ namespace NewUIPrototype.UI
 
             var backgroundViewSettings = ViewSettings.Nested[Context.BackgroundViewContext.SequenceNumber];
             var backgroundView = UIViewsPool.Instance
-                .GetView<BackgroundView>(backgroundViewSettings.ResourceId, transform)
+                .SpawnInParent<BackgroundView>(backgroundViewSettings.ResourceId, transform)
                 .Open(Context.BackgroundViewContext, backgroundViewSettings);
             AddNested(backgroundView);
 
             var titleViewSettings = ViewSettings.Nested[Context.TitleViewContext.SequenceNumber];
             backgroundView.AddNested(UIViewsPool.Instance
-                .GetView<TextView>(titleViewSettings.ResourceId, backgroundView.transform)
+                .SpawnInParent<TextView>(titleViewSettings.ResourceId, backgroundView.transform)
                 .Open(Context.TitleViewContext, titleViewSettings));
 
             var messageViewSettings = ViewSettings.Nested[Context.MessageViewContext.SequenceNumber];
             backgroundView.AddNested(UIViewsPool.Instance
-                .GetView<TextView>(messageViewSettings.ResourceId, backgroundView.transform)
+                .SpawnInParent<TextView>(messageViewSettings.ResourceId, backgroundView.transform)
                 .Open(Context.MessageViewContext, messageViewSettings));
 
             var okButtonViewSettings = ViewSettings.Nested[Context.OkButtonViewContext.SequenceNumber];
-            okButtonView = UIViewsPool.Instance.GetView<ButtonView>(okButtonViewSettings.ResourceId, backgroundView.transform);
+            okButtonView = UIViewsPool.Instance.SpawnInParent<ButtonView>(okButtonViewSettings.ResourceId, backgroundView.transform);
             okButtonView.Open(Context.OkButtonViewContext, okButtonViewSettings);
             backgroundView.AddNested(okButtonView);
 
             var cancelButtonViewSettings = ViewSettings.Nested[Context.CancelButtonViewContext.SequenceNumber];
             var cancelButtonView = UIViewsPool.Instance
-                .GetView<ButtonView>(cancelButtonViewSettings.ResourceId, backgroundView.transform)
+                .SpawnInParent<ButtonView>(cancelButtonViewSettings.ResourceId, backgroundView.transform)
                 .Open(Context.CancelButtonViewContext, cancelButtonViewSettings);
             backgroundView.AddNested(cancelButtonView);
         }

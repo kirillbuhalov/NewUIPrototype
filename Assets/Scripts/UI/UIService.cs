@@ -24,13 +24,13 @@ namespace NewUIPrototype.UI
         public void ShowPopup(PopupViewContext viewContext)
         {
             var viewSettings = ViewSettingsManager.GetPopupViewSettings();
-            var view = UIViewsPool.Instance.GetView<PopupView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
+            var view = UIViewsPool.Instance.SpawnInParent<PopupView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
             navigationStack.Push(view);
         }
         public void ShowContainer(ContainerViewContext viewContext)
         {
             var viewSettings = ViewSettingsManager.GetContainerViewSettings();
-            var view = UIViewsPool.Instance.GetView<ContainerView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
+            var view = UIViewsPool.Instance.SpawnInParent<ContainerView>(viewSettings.ResourceId, uiRoot).Open(viewContext, viewSettings);
             navigationStack.Push(view);
         }
 

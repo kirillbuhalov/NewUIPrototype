@@ -30,7 +30,7 @@ namespace NewUIPrototype.UI
 
             var labelViewSettings = ViewSettings.Nested[Context.LabelViewContext.SequenceNumber];
             AddNested(UIViewsPool.Instance
-                .GetView<TextView>(labelViewSettings.ResourceId, transform)
+                .SpawnInParent<TextView>(labelViewSettings.ResourceId, transform)
                 .Open(Context.LabelViewContext, labelViewSettings));
 
         }
