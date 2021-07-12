@@ -18,7 +18,7 @@ namespace NewUIPrototype.UI
         {
             var style = StylesManager.Get<BackgroundViewStyle>(ViewSettings.StyleId);
             image.color = style.Color;
-            RectTransform.sizeDelta = style.Size;
+            CachedRectTransform.sizeDelta = style.Size;
         }
     }
 }

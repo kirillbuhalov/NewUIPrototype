@@ -21,7 +21,7 @@ namespace NewUIPrototype.UI
         {
             var style = StylesManager.Get<ButtonViewStyle>(ViewSettings.StyleId);
             button.image.color = style.Color;
-            RectTransform.sizeDelta = style.Size;
+            CachedRectTransform.sizeDelta = style.Size;
         }
 
         protected override void OpenNestedViews()

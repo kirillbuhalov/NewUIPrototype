@@ -5,6 +5,8 @@ namespace NewUIPrototype.UI
 {
     public class ViewBase : MonoBehaviour
     {
+        [SerializeField] private Canvas viewRoot;
+
         private readonly List<ViewBase> nestedViews = new List<ViewBase>();
 
         private RectTransform rectTransform = null;
@@ -16,7 +18,7 @@ namespace NewUIPrototype.UI
             private set => viewSettings = value;
         }
 
-        public RectTransform RectTransform
+        public RectTransform CachedRectTransform
         {
             get
             {
@@ -48,7 +50,7 @@ namespace NewUIPrototype.UI
 
         protected virtual void Open()
         {
-            gameObject.SetActive(true);
+            viewRoot.enabled = true;
 
             OpenNestedViews();
 
@@ -59,7 +61,7 @@ namespace NewUIPrototype.UI
         {
             RemoveSubscriptions();
 
-            gameObject.SetActive(false);
+            viewRoot.enabled = false;
 
             for (int i = 0; i < nestedViews.Count ; i++)
             {
@@ -73,14 +75,14 @@ namespace NewUIPrototype.UI
         internal void SetViewSettings(ViewSettings viewSettings)
         {
             ViewSettings = viewSettings;
-            RectTransform.anchorMin = viewSettings.AnchorMin;
-            RectTransform.anchorMax = viewSettings.AnchorMax;
-            RectTransform.pivot = viewSettings.Pivot;
-            RectTransform.anchoredPosition = viewSettings.AnchoredPosition;
+            CachedRectTransform.anchorMin = viewSettings.AnchorMin;
+            CachedRectTransform.anchorMax = viewSettings.AnchorMax;
+            CachedRectTransform.pivot = viewSettings.Pivot;
+            CachedRectTransform.anchoredPosition = viewSettings.AnchoredPosition;
             //todo kirill.buhalov: need to think about moving that properties to styles (or not)
-            RectTransform.sizeDelta = viewSettings.SizeDelta;
-            RectTransform.localScale = viewSettings.LocalScale;
-            RectTransform.eulerAngles = viewSettings.EulerAngles;
+            CachedRectTransform.sizeDelta = viewSettings.SizeDelta;
+            CachedRectTransform.localScale = viewSettings.LocalScale;
+            CachedRectTransform.eulerAngles = viewSettings.EulerAngles;
 
         }
     }

@@ -48,6 +48,8 @@ GameObject:
   - component: {fileID: 4494184958586681254}
   - component: {fileID: 4494184958586681255}
   - component: {fileID: 7961765162563149685}
+  - component: {fileID: 223216793378221508}
+  - component: {fileID: 114561827602453212}
   m_Layer: 5
   m_Name: ContainerView
   m_TagString: Untagged
@@ -152,7 +154,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e5835001c14469acc5f19106f81c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewRoot: {fileID: 223216793378221508}
   contentRoot: {fileID: 4494184958385190326}
+--- !u!223 &223216793378221508
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494184958586681249}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &114561827602453212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4494184958586681249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &4494184959432597096
 GameObject:
   m_ObjectHideFlags: 0
